@@ -1,3 +1,10 @@
+**/logs
+**/node_modules
+**/artifacts
+**/cache
+**/.yarn
+
+
 # Logs
 logs
 *.log
