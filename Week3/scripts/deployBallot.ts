@@ -1,14 +1,20 @@
 
-import { MyToken__factory } from "../typechain-types";
+import { Ballot__factory } from "../typechain-types";
 import { ethers } from 'hardhat';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
 //const TEST_MINT_VALUE = ethers.utils.parseEther("10");
 
+const PROPOSALS = [
+    "Green",
+    "Orange",
+    "Red",
+    "Blue"
+].map(value => ethers.utils.formatBytes32String(value))
 
 
-
+const VOTING_TOKEN_ADDRESS = '0x18785Bd1006D5D6Bb2D3930b421cB3EB7ebd77e5'
 //const IANS_ADDRESS = ''
 
 
@@ -23,10 +29,10 @@ async function main() {
  console.log(`Your Wallet Balance is: ${balanceBN.toString()}`);
 
 
- const contractFactory = new MyToken__factory(signer);
- const contract = await contractFactory.deploy();
+ const contractFactory = new Ballot__factory(signer);
+ const contract = await contractFactory.deploy(PROPOSALS, VOTING_TOKEN_ADDRESS, 10, {maxPriorityFeePerGas: 10});
  await contract.deployed()
- console.log(`Tokenized Votes contract deployed at ${contract.address}`);
+ console.log(`Ballot contract deployed at ${contract.address}`);
 
 
 }
